@@ -1,8 +1,8 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import JSONResponse
-from utils.storage import upload_file_from_path, get_files
-from utils.database import insert_data
-from utils.vertex import analyze_text
+from app.utils.storage import upload_file, get_files
+# from app.utils.database import insert_data
+# from app.utils.vertex import analyze_text
 
 app = FastAPI()
 
@@ -23,13 +23,13 @@ def list_files():
     files = get_files(bucket_name)
     return {"files": files}
 
-@app.post("/save")
-async def save(data: dict):
-    insert_data(data['name'], data['value'])
-    return {"message": "Saved to DB"}
+# @app.post("/save")
+# async def save(data: dict):
+#     insert_data(data['name'], data['value'])
+#     return {"message": "Saved to DB"}
 
-@app.post("/analyze")
-async def analyze(data: dict):
-    result = analyze_text(data['text'])
-    return {"result": result}
+# @app.post("/analyze")
+# async def analyze(data: dict):
+#     result = analyze_text(data['text'])
+#     return {"result": result}
 
