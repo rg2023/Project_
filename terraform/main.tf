@@ -27,6 +27,11 @@ module "cloud_run_backend" {
       port = 8080
     }
   }
+   iam = {
+  "roles/run.invoker" = [
+    "user:rachelge-aaaa@sandboxgcp.cloud",
+  ]
+}
  service_account = module.service_accounts.email
 }
 
