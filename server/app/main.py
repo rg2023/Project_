@@ -20,6 +20,7 @@ async def upload(file: UploadFile = File(...)):
         return {"message": "Backend is running!"}
 
 
+
 @app.get("/upload")
 def list_files():
     bucket_name = "bucket-sandbox-lz-rachelge"
