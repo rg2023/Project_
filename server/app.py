@@ -13,12 +13,11 @@ def home():
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
     bucket_name = "bucket-sandbox-lz-rachelge"
-    
     if request.method == 'POST':
         file = request.files.get('file')
         if not file:
             return jsonify({"error": "No file provided"}), 400
-        upload_file(bucket_name, file)
+        upload_file_from_path(bucket_name, file)
         return jsonify({"message": "File uploaded"}), 200
     
     else:  
@@ -40,5 +39,4 @@ def analyze():
 
     
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))
-    app.run(host="0.0.0.0", port=port)
+     app.run(host="0.0.0.0", port=8080)
