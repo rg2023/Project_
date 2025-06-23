@@ -57,7 +57,7 @@ module "secret-manager" {
       name                  = "${var.db_name}-password"
       automatic_replication = true
       secret_data          = random_password.db_password.result
-    }
+    },
       {
       name                  = "${var.db_name}-user"
       automatic_replication = true
