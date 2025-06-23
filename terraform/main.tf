@@ -24,7 +24,7 @@ module "cloud_run_backend" {
   containers = {
     backend = {
       image = "gcr.io/cloudrun/hello"
-         port = 8000
+      port = 8080
     }
   }
  service_account = module.service_accounts.email
