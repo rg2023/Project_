@@ -13,8 +13,11 @@ def home():
 @app.post("/upload")
 async def upload(file: UploadFile = File(...)):
     bucket_name = "bucket-sandbox-lz-rachelge"
-    upload_file(bucket_name, file.file, file.filename)
-    return {"message": "File uploaded"}
+    try:
+        upload_file(bucket_name, file.file, file.filename)
+        return "File uploaded successfully"
+    except Exception:
+        return traceback.format_exc()
 
 
 @app.get("/upload")
