@@ -28,18 +28,10 @@ def list_files():
 
 
 @app.post("/save")
-async def save(request: Request):
-    try:
-        data = await request.json()
-        name = data["name"]
-        value = data["value"]
-        insert_data(name, value, "sandbox-lz-rachelge")
-        return {"status": "success", "message": "Saved to DB"}
-    except KeyError as e:
-        return {"status": "error", "message": f"Missing field: {str(e)}"}
-    
-    except Exception as e:
-        return {"status": "error", "message": str(e)}
+async def save(data: dict):
+    insert_data(data['name'], data['value'], "sandbox-lz-rachelge")
+    return {"message": "Saved to DB"}
+
 # @app.post("/analyze")
 # async def analyze(data: dict):
 #     result = analyze_text(data['text'])
