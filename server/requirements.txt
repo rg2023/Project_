@@ -1,5 +1,5 @@
 Flask
-gunicorn
+uvicorn
 google-cloud-storage
 google-cloud-secret-manager
 google-cloud-aiplatform
