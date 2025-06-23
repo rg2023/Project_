@@ -1,7 +1,7 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import JSONResponse
 from app.utils.storage import upload_file, get_files
-# from app.utils.database import insert_data
+from app.utils.database import insert_data
 # from app.utils.vertex import analyze_text
 
 app = FastAPI()
@@ -19,17 +19,18 @@ async def upload(file: UploadFile = File(...)):
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
-
 @app.get("/upload")
 def list_files():
     bucket_name = "bucket_sandbox-lz-rachelge"
     files = get_files(bucket_name)
     return {"files": files}
 
-# @app.post("/save")
-# async def save(data: dict):
-#     insert_data(data['name'], data['value'])
-#     return {"message": "Saved to DB"}
+
+
+@app.post("/save")
+async def save(data: dict):
+    insert_data(data['name'], data['value'], "sandbox-lz-rachelge")
+    return {"message": "Saved to DB"}
 
 # @app.post("/analyze")
 # async def analyze(data: dict):

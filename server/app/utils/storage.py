@@ -5,23 +5,15 @@ def upload_file(bucket_name, file_stream, filename):
     try:
         if not file_stream:
             raise ValueError("File stream is empty")
-            
         client = storage.Client()
         bucket = client.bucket(bucket_name)
         blob = bucket.blob(filename)
-        
-
         file_stream.seek(0)
         blob.upload_from_file(file_stream)
-        
-        print(f"✅ Uploaded {filename} to bucket {bucket_name}")
         return True
-        
     except GoogleAPIError as e:
-        print(f"❌ Google API error: {e}")
         raise
     except Exception as e:
-        print(f"❌ General error: {e}")
         raise
 
 

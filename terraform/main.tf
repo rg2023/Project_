@@ -44,17 +44,65 @@ module "artifact-registry" {
   format        = "DOCKER"
   repository_id = "repo"
 }
-# module "sql-db" {
-#   source  = "terraform-google-modules/sql-db/google//modules/mysql"
-#   version = "25.2.2"
-#   name                 = var.db_name
-#   random_instance_name = true
-#   database_version     = "MYSQL_5_6"
-#   project_id           = var.project_id
-#   zone                 = "me-west1-a"
-#   region               = var.region
-#   tier                 = "db-n1-standard-1"
-# }
+resource "random_password" "db_password" {
+  length  = 16
+  special = true
+}
+module "secret-manager" {
+  source  = "GoogleCloudPlatform/secret-manager/google"
+  version = "0.8.0"
+  project_id = var.project_id
+  secrets = [
+    {
+      name                  = "${var.db_name}-password"
+      automatic_replication = true
+      secret_data          = random_password.db_password.result
+    }
+      {
+      name                  = "${var.db_name}-user"
+      automatic_replication = true
+      secret_data          = "root"
+    },
+    {
+      name                  = "${var.db_name}-name"
+      automatic_replication = true
+      secret_data          = var.db_name
+    },
+    {
+      name                  = "${var.db_name}-host"
+      automatic_replication = true
+      secret_data          = module.sql-db.public_ip_address
+    }
+  ]
+}
+module "sql-db" {
+  source  = "terraform-google-modules/sql-db/google//modules/mysql"
+  version = "25.2.2"
+  name                 = var.db_name
+  random_instance_name = true
+  database_version     = "MYSQL_5_6"
+  project_id           = var.project_id
+  zone                 = "me-west1-a"
+  region               = var.region
+  tier                 = "db-n1-standard-1"
+  root_password = random_password.db_password.result
+  deletion_protection = false
+  backup_configuration = {
+    enabled    = true
+    start_time = "03:00"
+  }
+  ip_configuration = {
+    ipv4_enabled    = true
+    private_network = null
+    require_ssl     = false
+    authorized_networks = [
+      {
+        name  = "my-cloudshell"
+        value = "34.0.0.0/8" 
+      }
+    ]
+  }
+}
 module "bucket" {
   source  = "terraform-google-modules/cloud-storage/google//modules/simple_bucket"
   version = "~> 11.0"
