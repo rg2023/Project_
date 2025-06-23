@@ -71,7 +71,7 @@ module "secret-manager" {
     {
       name                  = "${var.db_name}-host"
       automatic_replication = true
-      secret_data          = module.sql-db.public_ip_address
+      secret_data          = "${var.project_id}:${var.region}:${var.db_name}"
     }
   ]
 }
@@ -79,7 +79,6 @@ module "sql-db" {
   source  = "terraform-google-modules/sql-db/google//modules/mysql"
   version = "25.2.2"
   name                 = var.db_name
-  random_instance_name = true
   database_version     = "MYSQL_5_6"
   project_id           = var.project_id
   zone                 = "me-west1-a"
