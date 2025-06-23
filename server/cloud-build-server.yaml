@@ -1,0 +1,25 @@
+options:
+  logging: CLOUD_LOGGING_ONLY
+substitutions:
+  _REGION: "me-west1"
+  _PROJECT_ID: "sandbox-lz-rachelge"
+  _SERVICE_ACCOUNT: "cloud-run-backend-sa@sandbox-lz-rachelge.iam.gserviceaccount.com"
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    dir: "server"
+    args: ["build", "-t", "me-west1-docker.pkg.dev/sandbox-lz-rachelge/repo/server:latest", "."]
+
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "me-west1-docker.pkg.dev/sandbox-lz-rachelge/repo/server:latest"]
+
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    args:
+      - gcloud
+      - run
+      - deploy
+      - cloud-run-backend
+      - --image=me-west1-docker.pkg.dev/${_PROJECT_ID}/repo/server:latest
+      - --region=${_REGION}
+      # -  --port=8000
+      - --platform=managed
+      - --service-account=${_SERVICE_ACCOUNT}

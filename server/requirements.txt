@@ -1,0 +1,5 @@
+Flask
+google-cloud-storage
+google-cloud-secret-manager
+google-cloud-sqlconnector[pg8000]
+google-cloud-aiplatform
