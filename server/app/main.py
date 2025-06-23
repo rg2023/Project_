@@ -15,10 +15,9 @@ async def upload(file: UploadFile = File(...)):
     bucket_name = "bucket-sandbox-lz-rachelge"
     try:
         upload_file(bucket_name, file.file, file.filename)
-        return "File uploaded successfully"
-    except Exception:
-        return {"message": "Backend is running!"}
-
+        return {"status": "success", "message": "File uploaded successfully"}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
 
 
 @app.get("/upload")
