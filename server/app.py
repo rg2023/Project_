@@ -31,6 +31,7 @@ def save():
     insert_data(data['name'], data['value'])
     return jsonify({"message": "Saved to DB"}), 200
 
+
 @app.route('/analyze', methods=['POST'])
 def analyze():
     text = request.json.get('text')
