@@ -30,6 +30,7 @@ module "cloud_run_backend" {
    iam = {
   "roles/run.invoker" = [
     "user:rachelge-aaaa@sandboxgcp.cloud",
+    "serviceAccount:${module.service_accounts.email}",
   ]
 }
  service_account = module.service_accounts.email
