@@ -10,18 +10,20 @@ app = Flask(__name__)
 def home():
     return "Backend is running!", 200
 
-@app.route('/upload', methods=['POST'])
-def upload():
-    file = request.files['file']
-    bucket_name = "bucket-sandbox-lz-rachelge"
-    upload_file(bucket_name, file)
-    return jsonify({"message": "File uploaded"}), 200
-
-@app.route('/upload', methods=['GET'])
+@app.route('/upload', methods=['GET', 'POST'])
 def upload():
     bucket_name = "bucket-sandbox-lz-rachelge"
-    files = get_files(bucket_name)
-    return jsonify({"files": files}), 200
+    
+    if request.method == 'POST':
+        file = request.files.get('file')
+        if not file:
+            return jsonify({"error": "No file provided"}), 400
+        upload_file(bucket_name, file)
+        return jsonify({"message": "File uploaded"}), 200
+    
+    else:  
+        files = get_files(bucket_name)
+        return jsonify({"files": files}), 200
 
 @app.route('/save', methods=['POST'])
 def save():
