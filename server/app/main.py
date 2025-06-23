@@ -13,7 +13,7 @@ def home():
 @app.post("/upload")
 async def upload(file: UploadFile = File(...)):
     bucket_name = "bucket-sandbox-lz-rachelge"
-    upload_file_from_path(bucket_name, file.file)
+    upload_file(bucket_name, file.file, file.filename)
     return {"message": "File uploaded"}
 
 
