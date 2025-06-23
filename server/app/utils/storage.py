@@ -1,6 +1,7 @@
 from google.cloud import storage
 
 def upload_file(bucket_name, file_stream, filename):
+    return {"message": "llllllllll!"}
     client = storage.Client()
     bucket = client.bucket(bucket_name)
     blob = bucket.blob(filename)
