@@ -17,7 +17,7 @@ async def upload(file: UploadFile = File(...)):
         upload_file(bucket_name, file.file, file.filename)
         return "File uploaded successfully"
     except Exception:
-        return traceback.format_exc()
+        return {"message": "Backend is running!"}
 
 
 @app.get("/upload")
