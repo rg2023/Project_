@@ -12,7 +12,7 @@ def home():
 
 @app.post("/upload")
 async def upload(file: UploadFile = File(...)):
-    bucket_name = "bucket-sandbox-lz-rachelge"
+    bucket_name = "bucket_sandbox-lz-rachelge"
     try:
         upload_file(bucket_name, file.file, file.filename)
         return {"status": "success", "message": "File uploaded successfully"}
