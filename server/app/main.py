@@ -16,6 +16,7 @@ async def upload(file: UploadFile = File(...)):
     upload_file_from_path(bucket_name, file.file)
     return {"message": "File uploaded"}
 
+
 @app.get("/upload")
 def list_files():
     bucket_name = "bucket-sandbox-lz-rachelge"
