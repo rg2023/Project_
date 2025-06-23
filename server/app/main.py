@@ -22,7 +22,7 @@ async def upload(file: UploadFile = File(...)):
 
 @app.get("/upload")
 def list_files():
-    bucket_name = "bucket-sandbox-lz-rachelge"
+    bucket_name = "bucket_sandbox-lz-rachelge"
     files = get_files(bucket_name)
     return {"files": files}
 
