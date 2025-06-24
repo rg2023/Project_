@@ -20,8 +20,6 @@ def insert_data(name, value, project_id):
         "mysql+pymysql://",  
         creator=getconn,
     )
-
-   
     create_table_sql = """
     CREATE TABLE IF NOT EXISTS my_table (
         id INT AUTO_INCREMENT PRIMARY KEY,

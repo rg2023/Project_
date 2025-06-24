@@ -80,11 +80,16 @@ resource "google_sql_user" "default_user" {
   instance = module.sql-db.instance_name
   password = random_password.db_password.result
 }
-
+resource "google_sql_database" "my_database" {
+  name     = var.db_name
+  instance = module.sql-db.instance_name
+  charset  = "utf8"
+  collation = "utf8_general_ci"
+}
 module "sql-db" {
   source  = "terraform-google-modules/sql-db/google//modules/mysql"
   version = "25.2.2"
-  name                 = var.db_name
+  name                 = var.db_instance
   database_version     = "MYSQL_5_6"
   project_id           = var.project_id
   zone                 = "me-west1-a"

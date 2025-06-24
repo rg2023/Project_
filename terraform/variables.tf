@@ -7,7 +7,11 @@ variable "project_id" {
 variable "sa_email_to_impersonate" {
   type = string 
 }
-variable "db_name" {
+variable "db_instance" {
   type    = string
   default = "db"
+}
+variable "db_name"{
+  type    = string
+  default = "database"
 }
