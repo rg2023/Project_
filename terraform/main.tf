@@ -61,7 +61,7 @@ module "secret-manager" {
       {
       name                  = "${var.db_name}-user"
       automatic_replication = true
-      secret_data          = "default"
+      secret_data          = "root"
     },
     {
       name                  = "${var.db_name}-name"
