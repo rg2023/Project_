@@ -71,7 +71,7 @@ module "secret-manager" {
     {
       name                  = "${var.db_instance}-host"
       automatic_replication = true
-      secret_data          = "${var.project_id}:${var.region}:${var.db_name}"
+      secret_data          = "${var.project_id}:${var.region}:${var.db_instance}"
     }
   ]
 }

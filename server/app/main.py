@@ -37,8 +37,7 @@ async def save(data: dict):
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
-# @app.post("/analyze")
-# async def analyze(data: dict):
-#     result = analyze_text(data['text'])
-#     return {"result": result}
+
+
+
 
