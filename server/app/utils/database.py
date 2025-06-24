@@ -20,6 +20,7 @@ def insert_data(name, value, project_id):
         "mysql+pymysql://",  
         creator=getconn,
     )
+    
     with engine.connect() as conn:
         conn.execute(sqlalchemy.text(
             "INSERT INTO my_table (name, value) VALUES (:name, :value)"
