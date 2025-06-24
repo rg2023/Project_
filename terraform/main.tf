@@ -64,12 +64,12 @@ module "secret-manager" {
       secret_data          = "rachel"
     },
     {
-      name                  = "${var.instance}-name"
+      name                  = "${var.db_instance}-name"
       automatic_replication = true
       secret_data          = var.db_name
     },
     {
-      name                  = "${var.instance}-host"
+      name                  = "${var.db_instance}-host"
       automatic_replication = true
       secret_data          = "${var.project_id}:${var.region}:${var.db_name}"
     }
