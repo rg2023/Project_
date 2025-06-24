@@ -112,6 +112,8 @@ module "bucket" {
     role   = "roles/storage.objectViewer"
     member = "user:rachelge-aaaa@sandboxgcp.cloud"
   }]
+  
+  force_destroy = true
 }
 module "create_sa_cloudbuild" {
   source               = "github.com/GoogleCloudPlatform/cloud-foundation-fabric//modules/iam-service-account"
