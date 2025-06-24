@@ -20,8 +20,23 @@ def insert_data(name, value, project_id):
         "mysql+pymysql://",  
         creator=getconn,
     )
-    
+
+   
+    create_table_sql = """
+    CREATE TABLE IF NOT EXISTS my_table (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255),
+        value VARCHAR(255)
+    );
+    """
+
+    insert_sql = """
+    INSERT INTO my_table (name, value)
+    VALUES (:name, :value);
+    """
+
     with engine.connect() as conn:
-        conn.execute(sqlalchemy.text(
-            "INSERT INTO my_table (name, value) VALUES (:name, :value)"
-        ), {"name": name, "value": value})
+        # שלב יצירת הטבלה
+        conn.execute(sqlalchemy.text(create_table_sql))
+        # שלב הכנסת הנתונים
+        conn.execute(sqlalchemy.text(insert_sql), {"name": name, "value": value})
