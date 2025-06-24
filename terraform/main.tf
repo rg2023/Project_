@@ -54,22 +54,22 @@ module "secret-manager" {
   project_id = var.project_id
   secrets = [
     {
-      name                  = "${var.db_name}-password"
+      name                  = "${var.db_instance}-password"
       automatic_replication = true
       secret_data          = random_password.db_password.result
     },
       {
-      name                  = "${var.db_name}-user"
+      name                  = "${var.db_instance}-user"
       automatic_replication = true
       secret_data          = "rachel"
     },
     {
-      name                  = "${var.db_name}-name"
+      name                  = "${var.instance}-name"
       automatic_replication = true
       secret_data          = var.db_name
     },
     {
-      name                  = "${var.db_name}-host"
+      name                  = "${var.instance}-host"
       automatic_replication = true
       secret_data          = "${var.project_id}:${var.region}:${var.db_name}"
     }

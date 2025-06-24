@@ -16,6 +16,7 @@ def insert_data(name, value, project_id):
         password=db_password,
         db=db_name,
     )
+    
     engine = sqlalchemy.create_engine(
         "mysql+pymysql://",  
         creator=getconn,
