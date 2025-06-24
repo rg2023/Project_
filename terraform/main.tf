@@ -75,6 +75,12 @@ module "secret-manager" {
     }
   ]
 }
+resource "google_sql_user" "default_user" {
+  name     = "rachel"
+  instance = module.sql-db.instance_name
+  password = random_password.db_password.result
+}
+
 module "sql-db" {
   source  = "terraform-google-modules/sql-db/google//modules/mysql"
   version = "25.2.2"
